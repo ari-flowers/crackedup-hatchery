@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Header from './components/Header';
-// import Home from './components/Home';
+import Home from './components/Home';
 // import Dashboard from './components/Dashboard';
 // import Hatchery from './components/Hatchery';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -11,14 +12,12 @@ function App() {
     <Router>
       <div className="App">
         {/* <Header /> */}
-        <h1>Welcome to Cracked Up Hatchery!</h1>
-        <p>Currently under construction, check back soon :)</p>
-        <small>site developed by ShivaMateria</small>
-        {/* <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/hatchery" element={<Hatchery />} />
-        </Routes> */}
+          {/* <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/hatchery" element={<Hatchery />} /> */}
+        </Routes>
+        <Footer />
       </div>
     </Router>
   );
