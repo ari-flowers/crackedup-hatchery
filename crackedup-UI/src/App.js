@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
+import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Hatchery from './components/Hatchery';
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
