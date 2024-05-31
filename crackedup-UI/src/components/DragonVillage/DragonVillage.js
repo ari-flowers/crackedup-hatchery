@@ -11,6 +11,7 @@ function DragonVillage() {
   const [clicks, setClicks] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [requiredClicks, setRequiredClicks] = useState(1);
+  const [resetForm, setResetForm] = useState(false)
 
   useEffect(() => {
     //fetch all egg links
@@ -63,6 +64,8 @@ function DragonVillage() {
           setSelectedEgg(null);
           setErrorMessage('');
           setRequiredClicks(eggs.length + 1 > 10 ? 10 : eggs.length + 1);
+          setResetForm(true)
+          setTimeout(() => setResetForm(false), 0);
         })
         .catch(error => {
           console.error('Error submitting eggs:', error);
@@ -97,8 +100,10 @@ function DragonVillage() {
 
   return (
     <div className="dragon-village">
+      
       {/* Submit Link form  */}
-      <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < requiredClicks} />
+      <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < requiredClicks} reset={resetForm}/>
+
       {/* Delete via Link form */}
       <DeleteEggForm onSubmit={handleDelete} />
       {errorMessage && <div className="error-message">{errorMessage}</div>}

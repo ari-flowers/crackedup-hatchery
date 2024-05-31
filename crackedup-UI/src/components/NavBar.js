@@ -17,6 +17,7 @@ function NavBar() {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
             <Nav.Link as={Link} to="/hatchery">Hatchery</Nav.Link>
+            <Nav.Link as={Link} to="/dragon-village">Dragon Village</Nav.Link>
           </Nav>
           <Button variant={buttonStyle} onClick={toggleTheme}>
             Toggle Theme

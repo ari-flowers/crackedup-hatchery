@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SubmitEggForm.css';
 
-function SubmitEggForm({ onSubmit, disabled }) {
+function SubmitEggForm({ onSubmit, disabled, reset }) {
   const [shareLink, setShareLink] = useState('');
   const [viewGoal, setViewGoal] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (shareLink && viewGoal) {
-      onSubmit({ share_link: shareLink, view_goal: parseInt(viewGoal, 10) });
+      onSubmit({ share_link: shareLink, view_goal: viewGoal });
     }
   };
+
+  useEffect(() => {
+    if (reset) {
+      setShareLink('');
+      setViewGoal('');
+    }
+  }, [reset]);
+
 
   return (
     <form className="submit-egg-form" onSubmit={handleSubmit}>
