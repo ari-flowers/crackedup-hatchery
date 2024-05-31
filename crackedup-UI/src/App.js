@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Hatchery from './components/Hatchery';
-import DragonVillage from './components/DragonVillage';
+import DragonVillage from './components/DragonVillage/DragonVillage';
 import Footer from './components/Footer';
 import './App.css';
 
