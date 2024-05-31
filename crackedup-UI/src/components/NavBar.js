@@ -1,10 +1,14 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ThemeContext, darkTheme } from '../context/ThemeContext';
 
 function NavBar() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const buttonStyle = theme === 'dark' ? 'outline-light' : 'outline-dark';
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg={theme} variant={theme} expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">Cracked Up</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -14,6 +18,9 @@ function NavBar() {
             <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
             <Nav.Link as={Link} to="/hatchery">Hatchery</Nav.Link>
           </Nav>
+          <Button variant={buttonStyle} onClick={toggleTheme}>
+            Toggle Theme
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
