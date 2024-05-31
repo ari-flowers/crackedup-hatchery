@@ -14,6 +14,16 @@ module Api
       end
     end
 
+    def destroy
+      egg = DragonVillageEgg.find_by(share_link: params[:share_link])
+      if egg
+        egg.destroy
+        head :no_content
+      else
+        render json: { error: 'Egg not found' }, status: :not_found
+      end
+    end  
+
     private
 
     def egg_params
