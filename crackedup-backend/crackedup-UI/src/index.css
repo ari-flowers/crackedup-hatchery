@@ -1,0 +1,50 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar-dark {
+  background-color: #121212 !important;
+}
+
+.navbar-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-dark {
+  background-color: #121212 !important;
+}
+
+.bg-light {
+  background-color: #ffffff !important;
+}
+
+/* Override card background colors for dark mode */
+.card.bg-dark {
+  background-color: #1c1c1c !important;
+  color: #ffffff;
+}
+
+.card.bg-light {
+  background-color: #ffffff !important;
+  color: #000000;
+}
