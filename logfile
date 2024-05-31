@@ -6,3 +6,7 @@
 2024-05-31 04:27:10.205 PDT [77996] LOG:  database system is ready to accept connections
 2024-05-31 04:44:11.858 PDT [78632] ERROR:  permission denied to create database
 2024-05-31 04:44:11.858 PDT [78632] STATEMENT:  CREATE DATABASE "crackedup_backend_development" ENCODING = 'unicode'
+2024-05-31 04:55:08.606 PDT [79287] ERROR:  database "crackedup_backend_development" already exists
+2024-05-31 04:55:08.606 PDT [79287] STATEMENT:  CREATE DATABASE "crackedup_backend_development" ENCODING = 'unicode'
+2024-05-31 04:55:08.613 PDT [79290] ERROR:  database "crackedup_backend_test" already exists
+2024-05-31 04:55:08.613 PDT [79290] STATEMENT:  CREATE DATABASE "crackedup_backend_test" ENCODING = 'unicode'
