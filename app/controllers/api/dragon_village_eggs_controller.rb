@@ -18,7 +18,7 @@ module Api
       render json: { error: 'Duplicate entry. This share link already exists.' }, status: :unprocessable_entity
     end
 
-    def destroy
+    def destroy_by_link
       egg = DragonVillageEgg.find_by(share_link: params[:share_link])
       if egg
         egg.destroy
