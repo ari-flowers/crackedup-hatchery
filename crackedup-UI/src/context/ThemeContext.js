@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { ThemeProvider as BootstrapThemeProvider } from 'react-bootstrap';
 
 export const ThemeContext = createContext();
 
