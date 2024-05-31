@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_31_115725) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_31_214849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dragon_village_eggs", force: :cascade do |t|
-    t.string "share_link"
+    t.string "share_link", null: false
     t.string "image"
-    t.integer "view_goal"
-    t.integer "view_count"
+    t.integer "view_goal", null: false
+    t.integer "view_count", default: 0, null: false
     t.datetime "submission_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["share_link"], name: "index_dragon_village_eggs_on_share_link", unique: true
   end
 
 end
