@@ -8,7 +8,7 @@ function SubmitEggForm({ onSubmit, disabled }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (shareLink && viewGoal) {
-      onSubmit({ shareLink, viewGoal: parseInt(viewGoal, 10) });
+      onSubmit({ share_link: shareLink, view_goal: parseInt(viewGoal, 10) });
     }
   };
 
