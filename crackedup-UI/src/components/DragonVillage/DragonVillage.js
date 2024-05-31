@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './DragonVillage.css';
 import SubmitEggForm from './SubmitEggForm';
+import DeleteEggForm from './DeleteEggForm';
 
 function DragonVillage() {
   const DV_API_URL = 'http://localhost:3000/api/dragon_village_eggs';
-  const DEFAULT_IMAGE_URL = '/images/default_redwyvern.png'
 
   const [eggs, setEggs] = useState([]);
   const [selectedEgg, setSelectedEgg] = useState(null);
@@ -19,7 +19,7 @@ function DragonVillage() {
         console.log('Fetched eggs:', data);
         setEggs(data.map(egg => ({
           ...egg,
-          image: egg.image || DEFAULT_IMAGE_URL, // Handle null image
+          image: egg.image || '/images/default_image.png', // Handle null image
           submission_time: egg.submission_time || new Date().toISOString() // Handle null submission_time
         })));
       })
@@ -51,7 +51,7 @@ function DragonVillage() {
         .then(newEgg => {
           setEggs([...eggs, {
             ...newEgg,
-            image: newEgg.image || DEFAULT_IMAGE_URL, // Handle null image
+            image: newEgg.image || '/images/default_image.png', // Handle null image
             submission_time: newEgg.submission_time || new Date().toISOString() // Handle null submission_time
           }]);
           setClicks(0);
@@ -67,14 +67,34 @@ function DragonVillage() {
     }
   };
 
+  const handleDelete = (shareLink) => {
+    fetch(`${DV_API_URL}/${encodeURIComponent(shareLink)}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        setEggs(eggs.filter(egg => egg.share_link !== shareLink));
+      })
+      .catch(error => {
+        console.error('Error deleting egg:', error);
+        setErrorMessage('Error deleting egg.');
+      });
+  };
+
   return (
     <div className="dragon-village">
       <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < REQUIRED_CLICKS} />
+      <DeleteEggForm onSubmit={handleDelete} />
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <div className="egg-grid">
         {eggs.map(egg => (
-          <div key={egg.id} className="egg" onClick={() => handleEggClick(egg)}>
-            <img src={egg.image} alt="Egg" />
+          <div key={egg.id} className="egg">
+            <img src={egg.image} alt="Egg" onClick={() => handleEggClick(egg)} />
           </div>
         ))}
       </div>
