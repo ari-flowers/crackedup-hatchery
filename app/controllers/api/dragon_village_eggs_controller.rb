@@ -19,7 +19,7 @@ module Api
     end
 
     def destroy
-      egg = DragonVillageEgg.find_by(share_link: params[:share_link])
+      egg = DragonVillageEgg.find_by(share_link: params[:id])
       if egg
         egg.destroy
         head :no_content
