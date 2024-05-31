@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import './DragonVillage.css'; // Import the stylesheet
+import './DragonVillage.css';
 import SubmitEggForm from './SubmitEggForm';
 
 function DragonVillage() {
   const DV_API_URL = 'http://localhost:3000/api/dragon_village_eggs'
+
   const [eggs, setEggs] = useState([]);
   const [selectedEgg, setSelectedEgg] = useState(null);
   const [clicks, setClicks] = useState(0);
-  const REQUIRED_CLICKS = 10;
+  const REQUIRED_CLICKS = 1;
 
   useEffect(() => {
     fetch(DV_API_URL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
-        console.log('Fetched eggs:', data); // Log the fetched data
+        console.log('Fetched eggs:', data)
         setEggs(data);
       })
       .catch(error => {
@@ -44,6 +40,7 @@ function DragonVillage() {
       .then(newEgg => {
         setEggs([...eggs, newEgg])
         setClicks(0)
+        setSelectedEgg(null);
       })
       .catch(error => {
         console.error('Error submitting eggs', error)
@@ -56,7 +53,7 @@ function DragonVillage() {
 
   return (
     <div className="dragon-village">
-      <SubmitEggForm onSubmit={handleSubmit} />
+      <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < REQUIRED_CLICKS} />
       <div className="egg-grid">
         {eggs.map(egg => (
           <div key={egg.id} className="egg" onClick={() => handleEggClick(egg)}>

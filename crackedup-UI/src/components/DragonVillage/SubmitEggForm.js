@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SubmitEggForm.css';
 
-function SubmitEggForm({ onSubmit }) {
+function SubmitEggForm({ onSubmit, disabled }) {
   const [shareLink, setShareLink] = useState('');
   const [viewGoal, setViewGoal] = useState('');
 
@@ -9,8 +9,6 @@ function SubmitEggForm({ onSubmit }) {
     event.preventDefault();
     if (shareLink && viewGoal) {
       onSubmit({ shareLink, viewGoal: parseInt(viewGoal, 10) });
-      setShareLink('');
-      setViewGoal('');
     }
   };
 
@@ -23,6 +21,7 @@ function SubmitEggForm({ onSubmit }) {
           value={shareLink}
           onChange={(e) => setShareLink(e.target.value)}
           required
+          disabled={disabled}
         />
       </label>
       <label>
@@ -32,9 +31,10 @@ function SubmitEggForm({ onSubmit }) {
           value={viewGoal}
           onChange={(e) => setViewGoal(e.target.value)}
           required
+          disabled={disabled}
         />
       </label>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={disabled}>Submit</button>
     </form>
   );
 }
