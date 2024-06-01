@@ -5,40 +5,36 @@ import DeleteEggForm from './DeleteEggForm';
 
 function DragonVillage() {
   const DV_API_URL = 'http://localhost:3000/api/dragon_village_eggs';
+  const DEFAULT_IMAGE_URL = '/images/default_redwyvern.png';
 
   const [eggs, setEggs] = useState([]);
   const [selectedEgg, setSelectedEgg] = useState(null);
   const [clicks, setClicks] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [requiredClicks, setRequiredClicks] = useState(1);
-  const [resetForm, setResetForm] = useState(false)
+  const [resetForm, setResetForm] = useState(false);
 
   useEffect(() => {
-    //fetch all egg links
     fetch(DV_API_URL)
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched eggs:', data);
         setEggs(data.map(egg => ({
           ...egg,
-          image: egg.image || '/images/default_image.png', // Handle null image
-          submission_time: egg.submission_time || new Date().toISOString() // Handle null submission_time
+          image: egg.image || DEFAULT_IMAGE_URL,
+          submission_time: egg.submission_time || new Date().toISOString()
         })));
-        //set required clicks to number of entries in the DB if <10
-        setRequiredClicks(data.length > 10 ? 10 : data.length)
+        setRequiredClicks(data.length > 10 ? 10 : data.length);
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
   }, []);
 
-  //Egg link click handler
   const handleEggClick = (egg) => {
     setSelectedEgg(egg);
     setClicks(clicks + 1);
   };
 
-  //Handle egg link submission form
   const handleSubmit = (data) => {
     if (clicks >= requiredClicks) {
       fetch(DV_API_URL, {
@@ -57,14 +53,14 @@ function DragonVillage() {
         .then(newEgg => {
           setEggs([...eggs, {
             ...newEgg,
-            image: newEgg.image || '/images/default_image.png', // Handle null image
-            submission_time: newEgg.submission_time || new Date().toISOString() // Handle null submission_time
+            image: newEgg.image || DEFAULT_IMAGE_URL,
+            submission_time: newEgg.submission_time || new Date().toISOString()
           }]);
           setClicks(0);
           setSelectedEgg(null);
           setErrorMessage('');
           setRequiredClicks(eggs.length + 1 > 10 ? 10 : eggs.length + 1);
-          setResetForm(true)
+          setResetForm(true);
           setTimeout(() => setResetForm(false), 0);
         })
         .catch(error => {
@@ -76,14 +72,12 @@ function DragonVillage() {
     }
   };
 
-  //Delete form handler
   const handleDelete = (shareLink) => {
-    fetch(DV_API_URL, {
+    fetch(`${DV_API_URL}/${encodeURIComponent(shareLink)}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ share_link: shareLink })
+      }
     })
       .then(response => {
         if (!response.ok) {
@@ -100,17 +94,19 @@ function DragonVillage() {
 
   return (
     <div className="dragon-village">
-      
-      {/* Submit Link form  */}
-      <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < requiredClicks} reset={resetForm}/>
-
-      {/* Delete via Link form */}
+      <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < requiredClicks} reset={resetForm} />
       <DeleteEggForm onSubmit={handleDelete} />
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <div className="egg-grid">
-        {eggs.map(egg => (
-          <div key={egg.id} className="egg">
-            <img src={egg.image} alt="Egg" onClick={() => handleEggClick(egg)} />
+        {eggs.map((egg, index) => (
+          <div key={egg.id || index} className="egg">
+            <img
+              src={egg.image}
+              alt="Egg"
+              onClick={() => handleEggClick(egg)}
+              onError={(e) => e.target.src = DEFAULT_IMAGE_URL}
+            />
+            <div className="view-count">{egg.view_count}/{egg.view_goal}</div>
           </div>
         ))}
       </div>
