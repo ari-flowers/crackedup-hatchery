@@ -8,11 +8,15 @@ module Api
     end
 
     def create
-      egg = DragonVillageEgg.new(egg_params)
-      if egg.save
-        render json: egg, status: :created
+      if valid_dragon_village_link?(egg_params[:share_link])
+        egg = DragonVillageEgg.new(egg_params)
+        if egg.save
+          render json: egg, status: :created
+        else
+          render json: egg.errors, status: :unprocessable_entity
+        end
       else
-        render json: egg.errors, status: :unprocessable_entity
+        render json: { error: 'Invalid Dragon Village link' }, status: :unprocessable_entity
       end
     rescue ActiveRecord::RecordNotUnique => e
       render json: { error: 'Duplicate entry. This share link already exists.' }, status: :unprocessable_entity
@@ -32,6 +36,10 @@ module Api
 
     def egg_params
       params.require(:dragon_village_egg).permit(:share_link, :view_goal, :image, :view_count, :submission_time)
+    end
+
+    def valid_dragon_village_link?(link)
+      link =~ /^https:\/\/dragon\.dvc\.land\/view\/[a-zA-Z]+(\?id=[a-zA-Z0-9]+)?$/
     end
   end
 end
