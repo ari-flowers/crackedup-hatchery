@@ -16,3 +16,6 @@
 2024-05-31 15:04:44.088 PDT [86413] ERROR:  duplicate key value violates unique constraint "index_dragon_village_eggs_on_share_link"
 2024-05-31 15:04:44.088 PDT [86413] DETAIL:  Key (share_link)=(https://dragon.dvc.land/view/us?id=66599a9ed3a9764f0f5bbad4) already exists.
 2024-05-31 15:04:44.088 PDT [86413] STATEMENT:  INSERT INTO "dragon_village_eggs" ("share_link", "image", "view_goal", "view_count", "submission_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"
+2024-05-31 18:09:21.104 PDT [96525] ERROR:  duplicate key value violates unique constraint "index_dragon_village_eggs_on_share_link"
+2024-05-31 18:09:21.104 PDT [96525] DETAIL:  Key (share_link)=(https://dragon.dvc.land/view/us?id=665806c699752d0e7e1e72f8) already exists.
+2024-05-31 18:09:21.104 PDT [96525] STATEMENT:  INSERT INTO "dragon_village_eggs" ("share_link", "image", "view_goal", "view_count", "submission_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"
