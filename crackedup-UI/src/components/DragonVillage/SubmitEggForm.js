@@ -5,11 +5,19 @@ function SubmitEggForm({ onSubmit, disabled, reset }) {
   const [shareLink, setShareLink] = useState('');
   const [viewGoal, setViewGoal] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (shareLink && viewGoal) {
-      onSubmit({ share_link: shareLink, view_goal: viewGoal });
+  function isValidDVLink(link) {
+    const regex = /^https:\/\/dragon\.dvc\.land\/view\/[a-zA-Z]+(\?id=[a-zA-Z0-9]+)?$/;
+    return regex.test(link);
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isValidDVLink(shareLink)) {
+      alert('Please enter a valid Dragon Village view link.');
+      return;
     }
+    onSubmit({ share_link: shareLink, view_goal: viewGoal });
   };
 
   useEffect(() => {
