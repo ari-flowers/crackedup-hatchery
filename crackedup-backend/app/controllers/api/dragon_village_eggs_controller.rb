@@ -14,7 +14,7 @@ module Api
 
       if valid_dragon_village_link?(egg_params[:share_link])
         Rails.logger.debug "Valid Dragon Village link: #{egg_params[:share_link]}"
-        
+
         scraped_data = DragonVillageScraper.scrape(egg_params[:share_link])
         Rails.logger.debug "Scraped data: #{scraped_data}"
 

@@ -25,9 +25,6 @@ class DragonVillageScraper
         return { image: nil, view_count: view_count }
       end
 
-      puts "Extracted Image URL: #{image_url}"
-      puts "Extracted View Count: #{view_count}"
-
       { image: image_url, view_count: view_count }
     else
       puts "Failed to scrape the URL: #{url}"
