@@ -23,9 +23,10 @@ module Api
           return render json: { error: 'Invalid Dragon Village link' }, status: :unprocessable_entity
         end
 
-        fallback_image_url = "https://res.dvc.land/dvc-web/res/default_image.png"
+        fallback_image_url = "/images/default_redwyvern.png"
         fallback_view_count = 0
 
+        # Check for scraping issues and set fallback values if needed
         if scraped_data.nil?
           scraped_data = { image: fallback_image_url, view_count: fallback_view_count }
           Rails.logger.error "Scraping failed, using fallback values: #{scraped_data}"
@@ -57,7 +58,9 @@ module Api
     end
 
     def destroy_by_link
-      egg = DragonVillageEgg.find_by(share_link: params[:share_link])
+      share_link = params[:share_link]
+      decoded_share_link = CGI.unescape(share_link)
+      egg = DragonVillageEgg.find_by(share_link: decoded_share_link)
       if egg
         egg.destroy
         head :no_content
