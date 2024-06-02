@@ -23,7 +23,9 @@ function DragonVillage() {
           image: egg.image || DEFAULT_IMAGE_URL,
           submission_time: egg.submission_time || new Date().toISOString()
         })));
-        setRequiredClicks(data.length > 10 ? 10 : data.length);
+        //Set # of clicks required before submitting a link
+        // setRequiredClicks(data.length > 10 ? 10 : data.length);
+        setRequiredClicks(0)
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -59,7 +61,9 @@ function DragonVillage() {
           setClicks(0);
           setSelectedEgg(null);
           setErrorMessage('');
-          setRequiredClicks(eggs.length + 1 > 10 ? 10 : eggs.length + 1);
+          // TO DO - set to 0 for testing, change later
+          // setRequiredClicks(eggs.length + 1 > 10 ? 10 : eggs.length + 1);
+          setRequiredClicks(0);
           setResetForm(true);
           setTimeout(() => setResetForm(false), 0);
         })
@@ -73,18 +77,21 @@ function DragonVillage() {
   };
 
   const handleDelete = (shareLink) => {
-    fetch(`${DV_API_URL}/${encodeURIComponent(shareLink)}`, {
+    fetch(`${DV_API_URL}/destroy_by_link`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({ share_link: shareLink})
     })
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         setEggs(eggs.filter(egg => egg.share_link !== shareLink));
-        setRequiredClicks(eggs.length - 1 > 10 ? 10 : eggs.length - 1);
+        //TO DO - Set to 0 for testing, change to proper number later.
+        // setRequiredClicks(eggs.length - 1 > 10 ? 10 : eggs.length - 1);
+        setRequiredClicks(0);
       })
       .catch(error => {
         console.error('Error deleting egg:', error);
@@ -106,7 +113,12 @@ function DragonVillage() {
               onClick={() => handleEggClick(egg)}
               onError={(e) => e.target.src = DEFAULT_IMAGE_URL}
             />
-            <div className="view-count">{egg.view_count}/{egg.view_goal}</div>
+            <div className="view-count">
+              {egg.view_count}/{egg.view_goal}
+            </div>
+            <div className="share-link">
+              <a href={egg.share_link} target="_blank" rel="noopener noreferrer">View Egg</a>
+            </div>
           </div>
         ))}
       </div>
