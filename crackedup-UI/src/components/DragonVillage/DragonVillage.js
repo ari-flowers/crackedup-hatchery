@@ -15,6 +15,10 @@ function DragonVillage() {
   const [resetForm, setResetForm] = useState(false);
 
   useEffect(() => {
+    fetchEggs();
+  }, []);
+
+  const fetchEggs = () => {
     fetch(DV_API_URL)
       .then(response => response.json())
       .then(data => {
@@ -23,14 +27,12 @@ function DragonVillage() {
           image: egg.image || DEFAULT_IMAGE_URL,
           submission_time: egg.submission_time || new Date().toISOString()
         })));
-        //Set # of clicks required before submitting a link
-        // setRequiredClicks(data.length > 10 ? 10 : data.length);
-        setRequiredClicks(0)
+        setRequiredClicks(0);
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
-  }, []);
+  };
 
   const handleEggClick = (egg) => {
     setSelectedEgg(egg);
@@ -53,16 +55,26 @@ function DragonVillage() {
           return response.json();
         })
         .then(newEgg => {
-          setEggs([...eggs, {
-            ...newEgg,
-            image: newEgg.image || DEFAULT_IMAGE_URL,
-            submission_time: newEgg.submission_time || new Date().toISOString()
-          }]);
+          const existingEggIndex = eggs.findIndex(egg => egg.share_link === newEgg.share_link);
+          if (existingEggIndex !== -1) {
+            const updatedEggs = [...eggs];
+            updatedEggs[existingEggIndex] = {
+              ...updatedEggs[existingEggIndex],
+              ...newEgg,
+              image: newEgg.image || DEFAULT_IMAGE_URL,
+              submission_time: newEgg.submission_time || new Date().toISOString()
+            };
+            setEggs(updatedEggs);
+          } else {
+            setEggs([...eggs, {
+              ...newEgg,
+              image: newEgg.image || DEFAULT_IMAGE_URL,
+              submission_time: newEgg.submission_time || new Date().toISOString()
+            }]);
+          }
           setClicks(0);
           setSelectedEgg(null);
           setErrorMessage('');
-          // TO DO - set to 0 for testing, change later
-          // setRequiredClicks(eggs.length + 1 > 10 ? 10 : eggs.length + 1);
           setRequiredClicks(0);
           setResetForm(true);
           setTimeout(() => setResetForm(false), 0);
@@ -82,15 +94,13 @@ function DragonVillage() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ share_link: shareLink})
+      body: JSON.stringify({ share_link: shareLink })
     })
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         setEggs(eggs.filter(egg => egg.share_link !== shareLink));
-        //TO DO - Set to 0 for testing, change to proper number later.
-        // setRequiredClicks(eggs.length - 1 > 10 ? 10 : eggs.length - 1);
         setRequiredClicks(0);
       })
       .catch(error => {
