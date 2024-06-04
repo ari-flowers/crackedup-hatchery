@@ -1,0 +1,2 @@
+module DragonVillageEggsHelper
+end
