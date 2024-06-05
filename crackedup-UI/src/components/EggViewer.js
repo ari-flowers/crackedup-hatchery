@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-function EggViewer() {
+function EggViewer({ selectedEgg }) {
   return (
-    <div>
-      <h1>EggViewer</h1>
+    <div className="egg-viewer">
+      {selectedEgg && <iframe src={selectedEgg.share_link} title="Egg Viewer" />}
     </div>
   );
 }
