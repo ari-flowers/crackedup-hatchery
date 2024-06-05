@@ -10,8 +10,6 @@ function DragonCave() {
   // const [selectedEgg, setSelectedEgg] = useState(null);
   // const [clicks, setClicks] = useState(0);
   // const [errorMessage, setErrorMessage] = useState('');
-  // const [requiredClicks, setRequiredClicks] = useState(1);
-  // const [resetForm, setResetForm] = useState(false);
 
   // useEffect(() => {
   //   fetchEggs();
@@ -73,7 +71,6 @@ function DragonCave() {
   //       setClicks(0);
   //       setSelectedEgg(null);
   //       setErrorMessage('');
-  //       setRequiredClicks(0);
   //       setResetForm(true);
   //       setTimeout(() => setResetForm(false), 0);
   //     })
@@ -109,10 +106,10 @@ function DragonCave() {
       {/* <SubmitDragonCaveEggForm onSubmit={handleSubmit} reset={resetForm} />
       <DeleteDragonCaveEggForm onSubmit={handleDelete} />
       {errorMessage && <div className="error-message">{errorMessage}</div>} */}
-      <EggGrid />
-      <EggViewer />
-      {/* <EggGrid eggs={eggs} handleEggClick={handleEggClick} DEFAULT_IMAGE_URL={DEFAULT_IMAGE_URL} />
-      <EggViewer selectedEgg={selectedEgg} /> */}
+      <h1>Dragon Cave Hatchery</h1>
+      <p>Coming soon!</p>
+      {/* <EggGrid eggs={eggs} handleEggClick={handleEggClick} DEFAULT_IMAGE_URL={DEFAULT_IMAGE_URL} showViewGoal={false}/>
+      <EggViewer selectedEgg={selectedEgg}/>*/}
     </div>
   );
 }
