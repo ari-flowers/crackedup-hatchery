@@ -22,7 +22,7 @@ Cracked Up Hatchery is a tool for the browser-based adoptable site [Dragon Cave]
 
 ### Dragon Village View Trader
 
-The Dragon Village View Trader is a tool for the mobile dragon-hatching game, Dragon Village Collection, and allows users to submit, view, set, and track the progress of unique views on their eggs and hatchlings. A certain number of unique views are required to unlock special dragon personalities and in-game achievements. To encourage users to contribute to the view trading system, they will be required to click a specified number of links before being able to submit each of their own links. 
+The Cracked Up View Trader is a tool for the mobile dragon-hatching game, Dragon Village Collection, and allows users to submit, view, set, and track the progress of unique views on their eggs and hatchlings. A certain number of unique views are required to unlock special dragon personalities and in-game achievements. To encourage users to contribute to the view trading system, they will be required to click a specified number of links before being able to submit each of their own links. 
 
 ## Features
 
