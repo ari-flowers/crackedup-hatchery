@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { ThemeContext, darkTheme } from '../context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 
 function NavBar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -16,7 +16,7 @@ function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-            <Nav.Link as={Link} to="/hatchery">Hatchery</Nav.Link>
+            <Nav.Link as={Link} to="/dragon-cave">Dragon Cave</Nav.Link>
             <Nav.Link as={Link} to="/dragon-village">Dragon Village</Nav.Link>
           </Nav>
           <Button variant={buttonStyle} onClick={toggleTheme}>
