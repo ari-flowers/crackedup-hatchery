@@ -14,6 +14,9 @@ module CrackedupBackend
     # Add lib to the autoload paths
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # Eager load the custom OmniAuth strategy
+    config.eager_load_paths += %W(#{config.root}/lib/omniauth/strategies)
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -25,7 +28,7 @@ module CrackedupBackend
     # CORS configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3001' # Replace with frontend URL
+        origins 'http://localhost:3001' # TO DO: Replace with frontend URL
         resource '*',
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head]
