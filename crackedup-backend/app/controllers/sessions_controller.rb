@@ -8,11 +8,15 @@ class SessionsController < ApplicationController
     end
 
     session[:user_id] = user.id
-    redirect_to user_dashboard_path
+    render json: { user: user }, status: :ok
+  end
+
+  def failure
+    render json: { error: "Authentication failed." }, status: :unauthorized
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path
+    render json: { message: "Logged out successfully." }, status: :ok
   end
 end
