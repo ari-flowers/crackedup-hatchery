@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './DragonVillage.css';
 import SubmitEggForm from './SubmitEggForm';
 import DeleteEggForm from './DeleteEggForm';
+import EggGrid from '../EggGrid';
+import EggViewer from '../EggViewer';
 
 function DragonVillage() {
   const DV_API_URL = 'http://localhost:3000/api/dragon_village_eggs';
@@ -114,27 +116,8 @@ function DragonVillage() {
       <SubmitEggForm onSubmit={handleSubmit} disabled={clicks < requiredClicks} reset={resetForm} />
       <DeleteEggForm onSubmit={handleDelete} />
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <div className="egg-grid">
-        {eggs.map((egg, index) => (
-          <div key={egg.id || index} className="egg">
-            <img
-              src={egg.image}
-              alt="Egg"
-              onClick={() => handleEggClick(egg)}
-              onError={(e) => e.target.src = DEFAULT_IMAGE_URL}
-            />
-            <div className="view-count">
-              {egg.view_count}/{egg.view_goal}
-            </div>
-            <div className="share-link">
-              <a href={egg.share_link} target="_blank" rel="noopener noreferrer">View Egg</a>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="egg-viewer">
-        {selectedEgg && <iframe src={selectedEgg.share_link} title="Egg Viewer" />}
-      </div>
+      <EggGrid eggs={eggs} handleEggClick={handleEggClick} DEFAULT_IMAGE_URL={DEFAULT_IMAGE_URL} showViewGoal={true}/>
+      <EggViewer selectedEgg={selectedEgg}/>
     </div>
   );
 }
