@@ -27,14 +27,26 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Middleware that will make Rack-based apps CORS compatible
 gem 'rack-cors'
 
+# For scheduling cron jobs
 gem 'whenever', require: false
 
+# Library for HTTP requests
 gem 'httparty'
 
-#webscraping
+# For Webscraping
 gem 'nokogiri'
+
+# An abstract OAuth2 strategy for OmniAuth
+gem 'omniauth-oauth2'
+
+# Multiprovider authentication [https://github.com/omniauth/omniauth]
+gem 'omniauth'
+
+# For environment variables
+gem 'dotenv-rails' 
 
 
 
