@@ -2,71 +2,60 @@ import React, { useState, useEffect } from 'react';
 import EggGrid from '../EggGrid';
 import EggViewer from '../EggViewer';
 
-const DragonCave = () => {
-  const [dragons, setDragons] = useState([]);
-  const [selectedDragon, setSelectedDragon] = useState(null);
+function DragonCave() {
+  const DC_API_URL = 'http://localhost:3000/api/dc_dragons';
+  const DEFAULT_IMAGE_URL = '/images/default_cupifriend.png';
+
+  const [eggs, setEggs] = useState([]);
+  const [selectedEgg, setSelectedEgg] = useState(null);
 
   useEffect(() => {
-    fetchDragons();
+    fetchEggs();
   }, []);
 
-  const fetchDragons = () => {
-    fetch('/api/dragons')
+  const fetchEggs = () => {
+    fetch(DC_API_URL)
       .then(response => response.json())
-      .then(data => setDragons(data))
-      .catch(error => console.error('Error fetching dragons:', error));
+      .then(data => {
+        setEggs(data.map(egg => ({
+          ...egg,
+          image: egg.image || DEFAULT_IMAGE_URL,
+        })));
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
   };
 
-  const handleEggClick = (dragon) => {
-    setSelectedDragon(dragon);
+  const handleEggClick = (egg) => {
+    setSelectedEgg(egg);
   };
 
   const handleAddAll = () => {
-    fetch('/api/dragons/add_all', { method: 'POST' })
-      .then(response => response.json())
-      .then(data => setDragons(data.dragons))
-      .catch(error => console.error('Error adding all dragons:', error));
+    // Handle add all logic here
   };
 
   const handleRemoveAll = () => {
-    fetch('/api/dragons/remove_all', { method: 'DELETE' })
-      .then(response => response.json())
-      .then(data => setDragons(data.dragons))
-      .catch(error => console.error('Error removing all dragons:', error));
-  };
-
-  const handleUpdateDragon = (id, inHatchery) => {
-    fetch(`/api/dragons/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ in_hatchery: inHatchery })
-    })
-      .then(response => response.json())
-      .then(data => {
-        const updatedDragons = dragons.map(dragon =>
-          dragon.id === id ? { ...dragon, in_hatchery: inHatchery } : dragon
-        );
-        setDragons(updatedDragons);
-      })
-      .catch(error => console.error('Error updating dragon:', error));
+    // Handle remove all logic here
   };
 
   return (
-    <div>
+    <div className="dragon-cave">
       <button onClick={handleAddAll}>Add All</button>
       <button onClick={handleRemoveAll}>Remove All</button>
       <EggGrid
-        eggs={dragons}
+        eggs={eggs}
         handleEggClick={handleEggClick}
-        DEFAULT_IMAGE_URL="/images/default_dragon.png"
-        showViewGoal={false} // Hide view goal for Dragon Cave
+        DEFAULT_IMAGE_URL={DEFAULT_IMAGE_URL}
+        showViewGoal={false} // No view goal for DragonCave
       />
-      <EggViewer selectedEgg={selectedDragon} />
+      <EggViewer selectedEgg={selectedEgg} />
     </div>
   );
-};
+}
 
 export default DragonCave;
+
 
 
 
