@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       delete 'destroy_by_link', on: :collection
     end
     # Dragon Cave hatchery
-    resources :dragons, only: [:index, :update, :destroy] do
+    resources :dc_dragons, only: [:index, :update, :destroy] do
       collection do
         post 'add_all'
         delete 'remove_all'
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update] do
     get 'dashboard', on: :member
   end
-  
+
   # OmniAuth routes for Dragon Cave
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
