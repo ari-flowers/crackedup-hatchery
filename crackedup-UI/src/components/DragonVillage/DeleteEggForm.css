@@ -1,18 +1,18 @@
-.submit-egg-form {
+.delete-egg-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.submit-egg-form label {
+.delete-egg-form label {
   margin-bottom: 10px;
 }
 
-.submit-egg-form input {
+.delete-egg-form input {
   margin-left: 10px;
 }
 
-.submit-egg-form button {
+.delete-egg-form button {
   margin-top: 10px;
   width: 200px;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './EggGrid.css';
 
 function EggGrid({ eggs, handleEggClick, DEFAULT_IMAGE_URL, showViewGoal }) {
   return (

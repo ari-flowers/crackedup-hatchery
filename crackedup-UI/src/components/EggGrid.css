@@ -1,0 +1,26 @@
+.egg-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* .egg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  text-align: center;
+} */
+
+.egg img {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+}
+
+.view-count,
+.share-link {
+  margin-top: 8px;
+}

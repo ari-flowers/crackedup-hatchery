@@ -10,14 +10,17 @@ function DeleteEggForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Enter share link to delete"
-        value={shareLink}
-        onChange={(e) => setShareLink(e.target.value)}
-        required
-      />
+    <form className="delete-egg-form" onSubmit={handleSubmit}>
+      <label>
+        Delete Egg:
+        <input
+          type="text"
+          placeholder="Enter share link to delete"
+          value={shareLink}
+          onChange={(e) => setShareLink(e.target.value)}
+          required
+        />
+      </label>
       <button type="submit">Delete Egg</button>
     </form>
   );
